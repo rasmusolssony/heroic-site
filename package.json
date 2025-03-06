@@ -27,6 +27,7 @@
     "react-icons": "^5.5.0"
   },
   "devDependencies": {
+    "@chakra-ui/icons": "^2.2.4",
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
     "@eslint/eslintrc": "^3",

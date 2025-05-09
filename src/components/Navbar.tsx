@@ -14,9 +14,9 @@ import { IoMdClose } from 'react-icons/io';
 
 const Links = [
   { name: 'Home', href: '/' },
-  { name: 'Announcements', href: '/announcements' },
-  { name: 'Application', href: '/application' },
-  { name: 'Members', href: '/members' },
+  { name: 'Announcements', href: '/announcements/' },
+  { name: 'Applications', href: '/applications/' },
+  { name: 'Members', href: '/members/' },
 ];
 
 const NavLink = ({

@@ -9,7 +9,9 @@ const Home = () => {
       color="white"
       minH="calc(100vh - 64px)"
     >
-      <Heading mb={4}>Welcome to Heroic</Heading>
+      <Heading as="h1" size="4xl" mb={4}>
+        Welcome to Heroic
+      </Heading>
       <Text>Stay tuned for more updates!</Text>
     </Box>
   );

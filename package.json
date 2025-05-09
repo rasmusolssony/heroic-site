@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint --fix",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "export": "next export"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": [

@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from '@chakra-ui/react';
 
-export const Application = () => {
+const Applications = () => {
   return (
     <Box
       p={6}
@@ -9,7 +9,7 @@ export const Application = () => {
       color="white"
       minH="calc(100vh - 64px)"
     >
-      <Heading as="h1" size="4xl">
+      <Heading mb={4} as="h1" size="4xl">
         Application
       </Heading>
       <Text>Coming soon...</Text>
@@ -17,4 +17,4 @@ export const Application = () => {
   );
 };
 
-export default Application;
+export default Applications;

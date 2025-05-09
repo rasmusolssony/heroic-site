@@ -9,7 +9,7 @@ const Announcements = () => {
       color="white"
       minH="calc(100vh - 64px)"
     >
-      <Heading as="h1" size="4xl">
+      <Heading mb={4} as="h1" size="4xl">
         Announcements
       </Heading>
       <Text>Coming soon...</Text>

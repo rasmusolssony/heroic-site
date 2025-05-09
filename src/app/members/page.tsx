@@ -1,6 +1,6 @@
 import { Box, Heading, Text } from '@chakra-ui/react';
 
-export const Members = () => {
+const Members = () => {
   return (
     <Box
       p={6}
@@ -9,7 +9,7 @@ export const Members = () => {
       color="white"
       minH="calc(100vh - 64px)"
     >
-      <Heading as="h1" size="4xl">
+      <Heading mb={4} as="h1" size="4xl">
         Members
       </Heading>
       <Text>Coming soon...</Text>

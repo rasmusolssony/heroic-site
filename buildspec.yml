@@ -10,6 +10,10 @@ phases:
     commands:
       - echo Building Next.js site...
       - npm run build
+      - echo Checking output directory...
+      - pwd
+      - ls -la
+      - ls -la out/ 
 artifacts:
   files:
     - out/**/*

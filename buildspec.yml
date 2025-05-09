@@ -16,5 +16,5 @@ phases:
       - ls -la out/ 
 artifacts:
   files:
-    - out/**/*
+    - '**/*'
   base-directory: out

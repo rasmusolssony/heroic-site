@@ -10,17 +10,13 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
-  ...compat.extends(
-    'next/core-web-vitals',
-    'next/typescript',
-    'prettier',
-  ),
+  ...compat.extends('next/core-web-vitals', 'next/typescript', 'prettier'),
   {
     ignores: ['node_modules', '.husky', '.next'],
-    rules: { "@typescript-eslint/no-empty-object-type": "off" },
+    rules: { '@typescript-eslint/no-empty-object-type': 'off' },
     settings: {
-      react: { "version": "detect" }
-    }
+      react: { version: 'detect' },
+    },
   },
 ];
 

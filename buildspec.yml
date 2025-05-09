@@ -1,16 +1,16 @@
-version: 0.2 
-phases: 
-  install: 
-    runtime-versions: 
-      nodejs: 18 
-    commands: 
-      - echo Installing dependencies... 
-      - npm install 
-  build: 
-    commands: 
-      - echo Building Next.js site... 
-      - npm run build 
-artifacts: 
-  files: 
-    - out/**/* 
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo Installing dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Building Next.js site...
+      - npm run build
+artifacts:
+  files:
+    - out/**/*
   base-directory: out

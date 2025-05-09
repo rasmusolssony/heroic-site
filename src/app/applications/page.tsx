@@ -10,7 +10,7 @@ const Applications = () => {
       minH="calc(100vh - 64px)"
     >
       <Heading mb={4} as="h1" size="4xl">
-        Application
+        Applications
       </Heading>
       <Text>Coming soon...</Text>
     </Box>

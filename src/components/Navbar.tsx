@@ -38,7 +38,7 @@ const NavLink = ({
 );
 
 const Navbar = () => {
-  const { open, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <Box bg="blackAlpha.100" px={4}>
@@ -48,9 +48,9 @@ const Navbar = () => {
           size="md"
           aria-label="Open Menu"
           display={{ md: 'none' }}
-          onClick={open ? onClose : onOpen}
+          onClick={isOpen ? onClose : onOpen}
         >
-          {open ? <IoMdClose /> : <RxHamburgerMenu />}
+          {isOpen ? <IoMdClose /> : <RxHamburgerMenu />}
         </IconButton>
 
         <HStack alignItems="center">
@@ -71,7 +71,7 @@ const Navbar = () => {
       </Flex>
 
       {/* Mobile Menu */}
-      {open && (
+      {isOpen && (
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as="nav">
             {Links.map((link) => (

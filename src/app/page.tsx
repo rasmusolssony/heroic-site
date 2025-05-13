@@ -8,7 +8,7 @@ const Home = () => {
       <Title order={1} mb={4}>
         Welcome to Heroic
       </Title>
-      <Text>Stay tuned for more updates!</Text>
+      <Text>Stay tuned for more updates!!</Text>
     </Box>
   );
 };

@@ -18,28 +18,31 @@
     ]
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.10.7",
     "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
+    "@mantine/core": "^8.0.0",
+    "@mantine/form": "^8.0.0",
+    "@mantine/hooks": "^8.0.0",
+    "@mantine/notifications": "^8.0.0",
+    "@tabler/icons-react": "^3.31.0",
     "axios": "^1.9.0",
-    "framer-motion": "^12.11.0",
-    "loadash": "^1.0.0",
     "lodash": "^4.17.21",
     "lodash.debounce": "^4.0.8",
+    "mixin": "^0.2.0",
     "next": "15.2.1",
     "next-auth": "^4.24.11",
-    "next-themes": "^0.4.4",
+    "next-themes": "^0.4.6",
     "prettier": "^3.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.56.3",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "sass": "^1.88.0"
   },
   "devDependencies": {
-    "@chakra-ui/icons": "^2.2.4",
     "@commitlint/cli": "^19.7.1",
     "@commitlint/config-conventional": "^19.7.1",
     "@eslint/eslintrc": "^3",
+    "@types/lodash": "^4.17.16",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -48,6 +51,9 @@
     "eslint-config-prettier": "^10.0.2",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
+    "postcss": "^8.5.3",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
     "typescript": "^5"
   }
 }

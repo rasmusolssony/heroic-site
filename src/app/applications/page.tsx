@@ -1,20 +1,14 @@
-import { Box, Heading } from '@chakra-ui/react';
+import { Box, Title } from '@mantine/core';
 
 import ApplicationForm from './applicationForm';
 
 const Applications = () => {
   return (
-    <Box
-      p={6}
-      textAlign="center"
-      bg="gray.900"
-      color="white"
-      minH="calc(100vh - 64px)"
-    >
-      <Heading mb={4} as="h1" size="4xl">
+    <Box ta="center">
+      <Title mb={4} order={1}>
         Applications
-      </Heading>
-      <Box maxW="600px" mx="auto" p={6} textAlign="left">
+      </Title>
+      <Box maw="600px" mx="auto" p={6} ta="left">
         <ApplicationForm />
       </Box>
     </Box>

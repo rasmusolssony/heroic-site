@@ -1,10 +1,10 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  experimental: {
-    optimizePackageImports: ['@chakra-ui/react'],
-  },
   output: 'export',
+  experimental: {
+    optimizePackageImports: ['@mantine/core', '@mantine/hooks', '@mantine/form'],
+  },
   images: {
     unoptimized: true,
   },

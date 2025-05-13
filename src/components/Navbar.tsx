@@ -1,88 +1,46 @@
 'use client';
 
-import {
-  Box,
-  Flex,
-  Link,
-  HStack,
-  IconButton,
-  useDisclosure,
-  Stack,
-} from '@chakra-ui/react';
-import { RxHamburgerMenu } from 'react-icons/rx';
-import { IoMdClose } from 'react-icons/io';
+import { useState } from 'react';
+import Link from 'next/link';
+import { Burger, Container, Group } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
+import classes from './Navbar.module.scss';
 
-const Links = [
-  { name: 'Home', href: '/' },
-  { name: 'Announcements', href: '/announcements/' },
-  { name: 'Applications', href: '/applications/' },
-  { name: 'Members', href: '/members/' },
+const links = [
+  { link: '/', label: 'Home' },
+  { link: '/announcements/', label: 'Announcements' },
+  { link: '/applications/', label: 'Applications' },
+  { link: '/members/', label: 'Members' },
 ];
 
-const NavLink = ({
-  href,
-  children,
-}: {
-  href: string;
-  children: React.ReactNode;
-}) => (
-  <Link
-    px={2}
-    py={1}
-    rounded="md"
-    _hover={{ textDecoration: 'none', bg: 'gray.200' }}
-    href={href}
-  >
-    {children}
-  </Link>
-);
-
 const Navbar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [opened, { toggle }] = useDisclosure(false);
+  const [active, setActive] = useState(links[0].link);
+
+  const items = links.map((link) => (
+    <Link
+      key={link.label}
+      href={link.link}
+      data-active={active === link.link || undefined}
+      className={classes.link}
+      onClick={() => {
+        setActive(link.link);
+      }}
+    >
+      {link.label}
+    </Link>
+  ));
 
   return (
-    <Box bg="blackAlpha.100" px={4}>
-      <Flex h={16} alignItems="center" justifyContent="space-between">
-        {/* Mobile Menu Button */}
-        <IconButton
-          size="md"
-          aria-label="Open Menu"
-          display={{ md: 'none' }}
-          onClick={isOpen ? onClose : onOpen}
-        >
-          {isOpen ? <IoMdClose /> : <RxHamburgerMenu />}
-        </IconButton>
+    <header className={classes.header}>
+      <Container size="md" className={classes.inner}>
+        <Group gap={5} visibleFrom="xs">
+          {items}
+        </Group>
 
-        <HStack alignItems="center">
-          {/* Logo/Brand Name */}
-          <Box fontWeight="bold">Heroic Clan</Box>
-          <HStack as="nav" display={{ base: 'none', md: 'flex' }}>
-            {Links.map((link) => (
-              <NavLink key={link.name} href={link.href}>
-                {link.name}
-              </NavLink>
-            ))}
-          </HStack>
-        </HStack>
-
-        <Flex alignItems="center">
-          {/* Place for additional actions like user profile */}
-        </Flex>
-      </Flex>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <Box pb={4} display={{ md: 'none' }}>
-          <Stack as="nav">
-            {Links.map((link) => (
-              <NavLink key={link.name} href={link.href}>
-                {link.name}
-              </NavLink>
-            ))}
-          </Stack>
-        </Box>
-      )}
-    </Box>
+        <Burger opened={opened} onClick={toggle} hiddenFrom="xs" size="sm" />
+      </Container>
+    </header>
   );
 };
 

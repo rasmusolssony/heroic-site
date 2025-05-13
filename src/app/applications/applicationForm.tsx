@@ -3,21 +3,15 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import {
-  VStack,
+  Stack,
   Button,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Input,
-  InputGroup,
-  InputRightElement,
+  TextInput,
+  Group,
   Textarea,
-  FormHelperText,
-  useToast,
-  Spinner,
-  Icon,
-} from '@chakra-ui/react';
-import { CheckIcon, CloseIcon } from '@chakra-ui/icons';
+  Loader,
+} from '@mantine/core';
+import { IconCheck, IconX } from '@tabler/icons-react';
+import { Notifications, notifications } from '@mantine/notifications';
 import axios from 'axios';
 import { debounce } from 'lodash';
 
@@ -47,7 +41,6 @@ const ApplicationForm = () => {
     clearErrors,
     setValue,
   } = useForm<FormData>({ mode: 'onChange' });
-  const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [rsnValidation, setRsnValidation] = useState<RsnValidation>({
     isValid: null,
@@ -65,19 +58,19 @@ const ApplicationForm = () => {
         setValue('discordName', discordName, { shouldValidate: true });
         setDiscordName(discordName);
         localStorage.setItem('discordName', discordName);
-        toast({
+        notifications.show({
           title: 'Success',
-          description: 'Successfully linked Discord account.',
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
+          message: 'Successfully linked Discord account.',
+          color: 'success',
+          autoClose: 5000,
+          withCloseButton: true,
         });
       }
     };
 
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
-  }, [setValue, toast]);
+  }, [setValue]);
 
   // Initiate Discord OAuth2
   const handleDiscordLogin = () => {
@@ -87,7 +80,7 @@ const ApplicationForm = () => {
         ? 'http://heroic-site.s3-website-us-east-1.amazonaws.com/applications/callback'
         : 'localhost:3000/applications/callback'
     );
-    const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify`;
+    const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_color=code&scope=identify`;
     window.open(authUrl, 'discordLogin', 'width=600, height=800, popup=true');
   };
 
@@ -96,12 +89,12 @@ const ApplicationForm = () => {
     setValue('discordName', '');
     setDiscordName('');
     localStorage.setItem('discordName', '');
-    toast({
+    notifications.show({
       title: 'Discord Cleared',
-      description: 'Discord account unlinked.',
-      status: 'info',
-      duration: 5000,
-      isClosable: true,
+      message: 'Discord account unlinked.',
+      color: 'info',
+      autoClose: 5000,
+      withCloseButton: true,
     });
   };
 
@@ -157,25 +150,25 @@ const ApplicationForm = () => {
       if (!response.ok) {
         throw new Error(result.message || 'Submission failed');
       }
-      toast({
+      notifications.show({
         title: 'Application Submitted',
-        description:
+        message:
           "Thank you for applying! We'll review your application as soon as possible.",
-        status: 'success',
-        duration: 5000,
-        isClosable: true,
+        color: 'green',
+        autoClose: 5000,
+        withCloseButton: true,
       });
       setDiscordName('');
       localStorage.setItem('discordName', '');
       reset();
     } catch (error) {
       console.log(error);
-      toast({
+      notifications.show({
         title: 'Error',
-        description: 'Failed to submit application. Please try again later.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
+        message: 'Failed to submit application. Please try again later.',
+        color: 'red',
+        autoClose: 5000,
+        withCloseButton: true,
       });
     } finally {
       setIsLoading(false);
@@ -184,165 +177,121 @@ const ApplicationForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <VStack spacing={4}>
-        <FormControl isInvalid={!!errors.rsn}>
-          <FormLabel htmlFor="rsn">OSRS Name</FormLabel>
-          <InputGroup>
-            <Input
-              id="rsn"
-              placeholder="OSRS Name"
-              {...register('rsn', {
-                required: 'OSRS Name is Required',
-                pattern: {
-                  value: /^[a-zA-Z0-9\s-]{1,12}$/,
-                  message: 'RSN must be 1-12 characters, alphanumeric',
-                },
-                onChange: (e) =>
-                  validateRsn(e.target.value, setError, clearErrors),
-              })}
-            />
-            <InputRightElement>
-              {rsnValidation.isLoading ? (
-                <Spinner size="sm" mt={2} />
-              ) : rsnValidation.isValid ? (
-                <Icon as={CheckIcon} color="teal.500" />
-              ) : rsnValidation.isValid === false ? (
-                <Icon as={CloseIcon} color="red.500" />
-              ) : null}
-            </InputRightElement>
-          </InputGroup>
-          <FormErrorMessage>
-            {errors.rsn && errors.rsn?.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.discordName}>
-          <FormLabel htmlFor="discordName">Discord ID</FormLabel>
-          <Input
-            id="discordName"
+      <Stack gap="md">
+        <TextInput
+          label="OSRS Name"
+          placeholder="OSRS Name"
+          withAsterisk
+          error={errors.rsn?.message}
+          rightSection={
+            rsnValidation.isLoading ? (
+              <Loader size="sm" />
+            ) : rsnValidation.isValid ? (
+              <IconCheck size={20} color="teal" />
+            ) : rsnValidation.isValid === false ? (
+              <IconX size={20} color="red" />
+            ) : null
+          }
+          {...register('rsn', {
+            required: 'OSRS Name is Required',
+            pattern: {
+              value: /^[a-zA-Z0-9\s-]{1,12}$/,
+              message: 'RSN must be 1-12 characters, alphanumeric',
+            },
+            onChange: (e) => validateRsn(e.target.value, setError, clearErrors),
+          })}
+        />
+        <div>
+          <TextInput
+            label="Discord ID"
             placeholder="Login with Discord"
+            withAsterisk
+            error={errors.discordName?.message}
+            value={discordName}
+            disabled
             {...register('discordName', {
               required: 'Discord is required so we can contact you',
             })}
-            value={discordName}
-            isDisabled={true}
           />
-          {!discordName ? (
-            <Button mt={2} colorScheme="blue" onClick={handleDiscordLogin}>
-              Login with Discord
-            </Button>
-          ) : (
-            <Button
-              mt={2}
-              colorScheme="red"
-              variant="outline"
-              onClick={handleClearDiscord}
-            >
-              Clear Discord
-            </Button>
-          )}
-          <FormErrorMessage>
-            {errors.discordName && errors.discordName?.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.country}>
-          <FormLabel htmlFor="country">Country</FormLabel>
-          <Input
-            id="country"
-            placeholder="Country"
-            {...register('country', {
-              required: 'Country is Required',
-            })}
-          />
-          <FormErrorMessage>
-            {errors.country && errors.country?.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.timeZone}>
-          <FormLabel htmlFor="timeZone">Time Zone</FormLabel>
-          <Input
-            id="timeZone"
-            placeholder="Time Zone"
-            {...register('timeZone', {
-              required: 'Time Zone is Required',
-            })}
-          />
-          <FormErrorMessage>
-            {errors.timeZone && errors.timeZone?.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.alts}>
-          <FormLabel htmlFor="alts">Alt Accounts</FormLabel>
-          <Textarea
-            id="alts"
-            placeholder="Alt Accounts"
-            {...register('alts')}
-          />
-          <FormHelperText>Tell us about your alts if you want!</FormHelperText>
-          <FormErrorMessage>
-            {errors.alts && errors.alts?.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.reason}>
-          <FormLabel htmlFor="reason">Reason for applying</FormLabel>
-          <Textarea
-            id="reason"
-            placeholder="Reason"
-            {...register('reason', {
-              required: 'You need to provide a reason',
-            })}
-          />
-          <FormHelperText>
-            Tell us about why you are applying to the clan
-          </FormHelperText>
-          <FormErrorMessage>
-            {errors.reason && errors.reason?.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.clanHistory}>
-          <FormLabel htmlFor="clanHistory">
-            Previous Clans & Reason for Leaving
-          </FormLabel>
-          <Textarea
-            id="clanHistory"
-            placeholder="Clan History"
-            {...register('clanHistory')}
-          />
-          <FormHelperText>
-            Please let us know if you have been a member of any other clans and
-            why you left
-          </FormHelperText>
-          <FormErrorMessage>
-            {errors.clanHistory && errors.clanHistory?.message}
-          </FormErrorMessage>
-        </FormControl>
-        <FormControl isInvalid={!!errors.referral}>
-          <FormLabel htmlFor="referral">
-            How did you hear about the clan?
-          </FormLabel>
-          <Input
-            id="referral"
-            placeholder="Referral"
-            {...register('referral', {
-              required: 'Please let us know how you found us!',
-            })}
-          />
-          <FormHelperText>
-            If referred by a member please state username
-          </FormHelperText>
-          <FormErrorMessage>
-            {errors.referral && errors.referral?.message}
-          </FormErrorMessage>
-        </FormControl>
+          <Group mt="sm">
+            {!discordName ? (
+              <Button color="blue" onClick={handleDiscordLogin}>
+                Login with Discord
+              </Button>
+            ) : (
+              <Button
+                color="red"
+                variant="outline"
+                onClick={handleClearDiscord}
+              >
+                Clear Discord
+              </Button>
+            )}
+          </Group>
+        </div>
+        <TextInput
+          label="Country"
+          placeholder="Country"
+          withAsterisk
+          error={errors.country?.message}
+          {...register('country', {
+            required: 'Country is Required',
+          })}
+        />
+        <TextInput
+          label="Time Zone"
+          placeholder="Time Zone"
+          withAsterisk
+          error={errors.timeZone?.message}
+          {...register('timeZone', {
+            required: 'Time Zone is Required',
+          })}
+        />
+        <Textarea
+          label="Alt Accounts"
+          placeholder="Alt Accounts"
+          error={errors.alts?.message}
+          description="Tell us about your alts if you want!"
+          {...register('alts')}
+        />
+        <Textarea
+          label="Reason for applying"
+          placeholder="Reason"
+          withAsterisk
+          error={errors.reason?.message}
+          description="Tell us about why you are applying to the clan"
+          {...register('reason', {
+            required: 'You need to provide a reason',
+          })}
+        />
+        <Textarea
+          label="Previous Clans & Reason for Leaving"
+          placeholder="Clan History"
+          error={errors.clanHistory?.message}
+          description="Please let us know if you have been a member of any other clans and why you left"
+          {...register('clanHistory')}
+        />
+        <TextInput
+          label="How did you hear about the clan?"
+          placeholder="Referral"
+          withAsterisk
+          error={errors.referral?.message}
+          description="If referred by a member please state username"
+          {...register('referral', {
+            required: 'Please let us know how you found us!',
+          })}
+        />
         <Button
-          mt={4}
-          colorScheme="teal"
-          isLoading={isSubmitting || isLoading}
-          isDisabled={isSubmitting || isLoading || !rsnValidation.isValid}
+          mt="md"
+          color="teal"
+          loading={isSubmitting || isLoading}
+          disabled={isSubmitting || isLoading || !rsnValidation.isValid}
           type="submit"
         >
           Submit
         </Button>
-      </VStack>
+      </Stack>
+      <Notifications />
     </form>
   );
 };

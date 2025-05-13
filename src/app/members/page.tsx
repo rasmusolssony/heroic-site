@@ -1,17 +1,11 @@
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Title, Text } from '@mantine/core';
 
 const Members = () => {
   return (
-    <Box
-      p={6}
-      textAlign="center"
-      bg="gray.900"
-      color="white"
-      minH="calc(100vh - 64px)"
-    >
-      <Heading mb={4} as="h1" size="4xl">
+    <Box p={6} ta="center">
+      <Title mb={4} order={1}>
         Members
-      </Heading>
+      </Title>
       <Text>Coming soon...</Text>
     </Box>
   );

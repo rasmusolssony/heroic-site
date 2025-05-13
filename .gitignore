@@ -44,4 +44,4 @@ next-env.d.ts
 
 # lambda zips
 /lambda/function.zip
-/discord-lambda/discord_lambda.zip
+/discord-lambda/discord-callback.zip

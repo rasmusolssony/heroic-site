@@ -1,4 +1,6 @@
-import { Box, Heading, Text } from '@chakra-ui/react';
+import { Box, Heading } from '@chakra-ui/react';
+
+import ApplicationForm from './applicationForm';
 
 const Applications = () => {
   return (
@@ -12,7 +14,9 @@ const Applications = () => {
       <Heading mb={4} as="h1" size="4xl">
         Applications
       </Heading>
-      <Text>Coming soon...</Text>
+      <Box maxW="600px" mx="auto" p={6} textAlign="left">
+        <ApplicationForm />
+      </Box>
     </Box>
   );
 };

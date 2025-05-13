@@ -13,7 +13,7 @@ phases:
       - echo Checking output directory...
       - pwd
       - ls -la
-      - ls -la out/ 
+      - ls -la out/
 artifacts:
   files:
     - '**/*'

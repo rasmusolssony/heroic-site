@@ -1,4 +1,8 @@
 version: 0.2
+env:
+  parameter-store:
+    NEXT_PUBLIC_DISCORD_CLIENT_ID: "/heroic-site/NEXT_PUBLIC_DISCORD_CLIENT_ID"
+    DISCORD_CLIENT_SECRET: "/heroic-site/DISCORD_CLIENT_SECRET"
 phases:
   install:
     runtime-versions:

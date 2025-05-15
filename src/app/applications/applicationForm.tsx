@@ -58,6 +58,7 @@ const ApplicationForm = () => {
         setValue('discordName', discordName, { shouldValidate: true });
         setDiscordName(discordName);
         localStorage.setItem('discordName', discordName);
+        console.log('Discord Name');
         notifications.show({
           title: 'Success',
           message: 'Successfully linked Discord account.',

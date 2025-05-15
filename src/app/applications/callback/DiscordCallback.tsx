@@ -19,7 +19,7 @@ const DiscordCallback = () => {
         autoClose: 5000,
         withCloseButton: true,
       });
-      window.close();
+      //window.close();
       return;
     }
 
@@ -43,7 +43,7 @@ const DiscordCallback = () => {
           autoClose: 5000,
           withCloseButton: true,
         });
-        window.close();
+        //window.close();
       } catch (error) {
         console.error('Error: ', error);
         notifications.show({

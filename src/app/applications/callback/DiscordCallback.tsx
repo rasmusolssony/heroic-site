@@ -10,6 +10,8 @@ const DiscordCallback = () => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
+    console.log('Callback URL:', window.location.href); // Debug
+    console.log('Search Params:', Object.fromEntries(searchParams)); // Debug
     const code = searchParams.get('code');
     if (!code) {
       notifications.show({

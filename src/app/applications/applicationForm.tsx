@@ -78,7 +78,7 @@ const ApplicationForm = () => {
     const clientId = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
     const redirectUri = encodeURIComponent(
       process.env.NODE_ENV === 'production'
-        ? 'http://heroic-site.s3-website-us-east-1.amazonaws.com/applications/callback'
+        ? 'http://heroic-site.s3-website-us-east-1.amazonaws.com/applications/callback/'
         : 'localhost:3000/applications/callback'
     );
     const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify`;

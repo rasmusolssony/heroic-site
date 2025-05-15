@@ -53,7 +53,7 @@ const DiscordCallback = () => {
           autoClose: 5000,
           withCloseButton: true,
         });
-        window.close();
+        //window.close();
       }
     };
 

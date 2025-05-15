@@ -82,7 +82,6 @@ const ApplicationForm = () => {
     );
     const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify`;
     window.open(authUrl, 'discordLogin', 'width=600, height=800, popup=true');
-    console.log('Redirect Uri: ', redirectUri);
   };
 
   // Clear Discord ID from localStorage

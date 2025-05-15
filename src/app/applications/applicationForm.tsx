@@ -82,6 +82,7 @@ const ApplicationForm = () => {
         : 'localhost:3000/applications/callback'
     );
     const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=identify`;
+    console.log('authUrl: ', authUrl);
     window.open(authUrl, 'discordLogin', 'width=600, height=800, popup=true');
   };
 
